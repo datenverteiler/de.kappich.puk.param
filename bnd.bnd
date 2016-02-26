@@ -1,0 +1,4 @@
+-exportcontents: de.kappich.puk.param.*
+-sources: true
+
+Bundle-Name: de.kappich.puk.param
