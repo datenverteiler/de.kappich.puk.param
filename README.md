@@ -1,4 +1,4 @@
-de.kappich.puk.param v${project.version} [![Build Status](https://travis-ci.org/datenverteiler/de.kappich.puk.param.svg?branch=master)](https://travis-ci.org/datenverteiler/de.kappich.puk.param)
+de.kappich.puk.param v${project.version} [![Build Status](https://travis-ci.org/datenverteiler/de.kappich.puk.param.svg?branch=develop)](https://travis-ci.org/datenverteiler/de.kappich.puk.param)
 ===========================
 
 
