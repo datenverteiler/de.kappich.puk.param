@@ -1,12 +1,12 @@
 /*
  * Copyright 2007 by Kappich Systemberatung, Aachen
- * Copyright 2004 by Kappich+Kniß Systemberatung Aachen (K2S)
+ * Copyright 2004 by Kappich+KniÃŸ Systemberatung Aachen (K2S)
  * 
  * This file is part of de.kappich.puk.param.
  * 
- * de.kappich.puk.param is free software; you can redistribute it and/or modify
+ * de.kappich.puk.param is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * de.kappich.puk.param is distributed in the hope that it will be useful,
@@ -15,8 +15,14 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with de.kappich.puk.param; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * along with de.kappich.puk.param.  If not, see <http://www.gnu.org/licenses/>.
+
+ * Contact Information:
+ * Kappich Systemberatung
+ * Martin-Luther-StraÃŸe 14
+ * 52062 Aachen, Germany
+ * phone: +49 241 4090 436 
+ * mail: <info@kappich.de>
  */
 
 package de.kappich.puk.param.main;
@@ -32,13 +38,13 @@ import java.util.Hashtable;
  * Verwaltet {@link PersistanceHandler} Objekte
  *
  * @author Kappich Systemberatung
- * @version $Revision: 6228 $
+ * @version $Revision$
  */
 
 public final class PersistanceHandlerManager {
 
 	/**
-	 * DebugLogger für Debug-Ausgaben
+	 * DebugLogger fÃ¼r Debug-Ausgaben
 	 */
 	private static final Debug debug = Debug.getLogger();
 
@@ -50,7 +56,7 @@ public final class PersistanceHandlerManager {
 	 * Erzeugt ein Objekt vom Typ PersistanceHandlerManager. Der Manager verwaltet alle {@link PersistanceHandler}, so
 	 * dass je {@link de.bsvrz.sys.funclib.dataIdentificationSettings.DataIdentification} immer nur ein {@link PersistanceHandler} existiert.
 	 *
-	 * @param path Verzeichnispfad, indem die Daten für die einzelnen Handler persistent gehalten werden.
+	 * @param path Verzeichnispfad, indem die Daten fÃ¼r die einzelnen Handler persistent gehalten werden.
 	 */
 	public PersistanceHandlerManager(final File path) {
 		_path = path;
@@ -58,12 +64,12 @@ public final class PersistanceHandlerManager {
 	}
 
 	/**
-	 * Gibt für eine DatenIdentifikation einen {@link PersistanceHandler} zurück. Existiert ein solcher Handler noch nicht,
-	 * wird er angelegt. Existiert bereits ein Handler, so wird dieser zurückgegeben.
+	 * Gibt fÃ¼r eine DatenIdentifikation einen {@link PersistanceHandler} zurÃ¼ck. Existiert ein solcher Handler noch nicht,
+	 * wird er angelegt. Existiert bereits ein Handler, so wird dieser zurÃ¼ckgegeben.
 	 *
-	 * @param dataIdentification DatenIdentifikation, für die ein PersistanceHandler Objekt zurückgegben wird.
+	 * @param dataIdentification DatenIdentifikation, fÃ¼r die ein PersistanceHandler Objekt zurÃ¼ckgegben wird.
 	 *
-	 * @return Der {@link PersistanceHandler} für diese DatenIdentifikation.
+	 * @return Der {@link PersistanceHandler} fÃ¼r diese DatenIdentifikation.
 	 */
 	public PersistanceHandler getHandler(final DataIdentification dataIdentification) {
 		_dataIdentification = dataIdentification;
@@ -72,7 +78,7 @@ public final class PersistanceHandlerManager {
 			try {
 				if (!_path.exists()) {
 					if (!_path.mkdir()) {
-						debug.error("Anlegen der Persistenzdatei für DatenIdentifikation " + _dataIdentification +
+						debug.error("Anlegen der Persistenzdatei fÃ¼r DatenIdentifikation " + _dataIdentification +
 						            " fehlgeschlagen, da Verzeichnis [" + _path + "] nicht angelegt werden konnte!");
 					}
 				}
@@ -82,7 +88,7 @@ public final class PersistanceHandlerManager {
 				final File persistantData = new File(_path, asciiFileName);
 				if (!persistantData.exists()) {
 					boolean renamed = false;
-					// Hier wird kein equals() gebraucht, da replaceSpecialCharacters das selbe Objekt zurück gibt, wenn kein Zeichen ersetzt wurde.
+					// Hier wird kein equals() gebraucht, da replaceSpecialCharacters das selbe Objekt zurÃ¼ck gibt, wenn kein Zeichen ersetzt wurde.
 					if(asciiFileName != originalName) {
 						// Name hat Umlaute enthalten, eventuell vorhandene Datei mit Umlauten wird umbenannt
 						final File badPersistantData = new File(_path, originalName);
@@ -96,7 +102,7 @@ public final class PersistanceHandlerManager {
 					// Wenn Datei nicht umbenannt wurde, wird sie angelegt
 					if (!renamed) {
 						if (!persistantData.createNewFile()) {
-							debug.error("Anlegen der Persistenzdatei für DatenIdentifikation " + _dataIdentification +
+							debug.error("Anlegen der Persistenzdatei fÃ¼r DatenIdentifikation " + _dataIdentification +
 							            " fehlgeschlagen, da Datei [" + persistantData + "] nicht angelegt werden konnte!");
 						}
 					}
@@ -105,7 +111,7 @@ public final class PersistanceHandlerManager {
 				_handler.put(_dataIdentification, persistanceHandler);
 			}
 			catch (IOException e) {
-				debug.error("I/O-Fehler beim Versuch, die Persistenzdatei für DatenidenDatenIdentifikation "
+				debug.error("I/O-Fehler beim Versuch, die Persistenzdatei fÃ¼r DatenidenDatenIdentifikation "
 				            + dataIdentification + " anzulegen.");
 				throw new RuntimeException(e);
 			}
@@ -138,11 +144,11 @@ public final class PersistanceHandlerManager {
 	}
 
 	/**
-	 * Ersetzt Umlaute und andere problematische Zeichen wie z.B. '/' im übergebenen String durch ASCII-Entsprechungen
+	 * Ersetzt Umlaute und andere problematische Zeichen wie z.B. '/' im Ã¼bergebenen String durch ASCII-Entsprechungen
 	 *
 	 * @param text Zu ersetzender Text
-	 * @return Wenn keine Umlaute oder andere problematische Zeichen in <<code>text</code> enthalten sind, wird <<code>text</code> zurückgegeben (das selbe
-	 *         Objekt), ansonsten wird ein neuer String zurückgegeben in dem die Umlaute durch die üblichen
+	 * @return Wenn keine Umlaute oder andere problematische Zeichen in <<code>text</code> enthalten sind, wird <<code>text</code> zurÃ¼ckgegeben (das selbe
+	 *         Objekt), ansonsten wird ein neuer String zurÃ¼ckgegeben in dem die Umlaute durch die Ã¼blichen
 	 *         ASCII-Entsprechungen ersetzt wurden.
 	 */
 	private String replaceSpecialCharacters(String text) {
