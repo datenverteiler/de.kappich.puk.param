@@ -1,12 +1,12 @@
 /*
  * Copyright 2007 by Kappich Systemberatung, Aachen
- * Copyright 2004 by Kappich+Kniß Systemberatung Aachen (K2S)
+ * Copyright 2004 by Kappich+KniÃŸ Systemberatung Aachen (K2S)
  * 
  * This file is part of de.kappich.puk.param.
  * 
- * de.kappich.puk.param is free software; you can redistribute it and/or modify
+ * de.kappich.puk.param is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * de.kappich.puk.param is distributed in the hope that it will be useful,
@@ -15,8 +15,14 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with de.kappich.puk.param; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * along with de.kappich.puk.param.  If not, see <http://www.gnu.org/licenses/>.
+
+ * Contact Information:
+ * Kappich Systemberatung
+ * Martin-Luther-StraÃŸe 14
+ * 52062 Aachen, Germany
+ * phone: +49 241 4090 436 
+ * mail: <info@kappich.de>
  */
 
 package de.kappich.puk.param.main;
@@ -48,30 +54,30 @@ import java.io.File;
 import java.util.*;
 
 /**
- * Diese Klasse implementiert die Parametrierung, die sich über Aufrufargumente
+ * Diese Klasse implementiert die Parametrierung, die sich Ã¼ber Aufrufargumente
  * gesteuert auf beliebige Vorgabe-Parameter-Daten des Systems anmelden kann,
  * und diese als Soll-Parameter publiziert.
- * <p/>
+ * <p>
  * Datenfluss:
- * <p/>
+ * <p>
  * Ein zu verwendender Paramtersatz wird (i.d.R. durch die Bedienung) als
  * Vorgabe-Parameter versandt und von der Paramterierung (die darauf als Senke
  * angemeldet ist) als Soll-Paramter publiziert. Der Soll-Parameter wird von den
  * zu parametrierenden Applikationen verwendet. Eine solche Applikation hat
- * zudem die Möglichkeit (wird i.d.R. aber nicht verwendet) den von ihr
- * tatsächlichen benutzten Paramtersatz als Ist-Parameter zu publizieren.
- * <p/>
- * Bespiel: Bedienung setzt Vorgabe-Parameter für Erfassungszyklus auf Wert 1,1
+ * zudem die MÃ¶glichkeit (wird i.d.R. aber nicht verwendet) den von ihr
+ * tatsÃ¤chlichen benutzten Paramtersatz als Ist-Parameter zu publizieren.
+ * <p>
+ * Bespiel: Bedienung setzt Vorgabe-Parameter fÃ¼r Erfassungszyklus auf Wert 1,1
  * Minuten. Parameterierung publiziert dies an alle angemeldeten Applikationen
  * als Soll-Parameter. Die TLS-Applikation (als ein Abnehmer) sendet diesen Wert
- * an die Streckenstation. Da dort keine 1,1 Minuten eingestellt werden können,
- * meldet die Streckenstation als eingestellten Wert 1 Minute zurück. Die
+ * an die Streckenstation. Da dort keine 1,1 Minuten eingestellt werden kÃ¶nnen,
+ * meldet die Streckenstation als eingestellten Wert 1 Minute zurÃ¼ck. Die
  * TLS-Applikation publiziert daraufhin als Ist-Paramter den Wert 1-Minute. In
- * der Bedienung könnte z.B. über eine Gegenüberstellung von Vorgabe-, Soll- und
+ * der Bedienung kÃ¶nnte z.B. Ã¼ber eine GegenÃ¼berstellung von Vorgabe-, Soll- und
  * Ist-Parameter auf diese Abweichung hingewiesen werden.
- * <p/>
+ * <p>
  * Aufruf:
- * <p/>
+ * <p>
  * <code><pre>
  * java de.kappich.puk.param.main.ParamApp -parameterPfad=ParameterPfad -parametrierung=Pid
  * </code></pre>
@@ -81,19 +87,19 @@ import java.util.*;
  * werden.
  *                Default: "./parameter".
  *                Der spezifizierte Zielordner muss existieren!
- * <p/>
+ * <p>
  * Pid:           PID des Parametrierungsobjekts (typ.parametrierung) an dem
  * die
- *                Parameter für diese Parametrierung verwaltet werden.
+ *                Parameter fÃ¼r diese Parametrierung verwaltet werden.
  *                Default: parametrierung.global
  *                Die Beschreibung der Parameterattributgruppe siehe DatKat,
  * atg.parametrierung.
- * <p/>
+ * <p>
  * </code></pre>
- * <p/>
+ * <p>
  *
  * @author Kappich Systemberatung
- * @version $Revision: 11347 $
+ * @version $Revision$
  */
 public class ParamApp implements ClientSenderInterface, ClientReceiverInterface {
 
@@ -110,25 +116,25 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 	 */
 	static final String ASP_OUTPUT = "asp.parameterSoll";
 	/**
-	 * ManagerObjekt, der die PersistenceHandler für die Paramtersätze verwaltet.
+	 * ManagerObjekt, der die PersistenceHandler fÃ¼r die ParamtersÃ¤tze verwaltet.
 	 */
 	private PersistanceHandlerManager _persistanceHandlerManager;
 	/**
-	 * Tabelle mit den aktuell verwalteten PersistenceHandlern. Als Schlüssel dient
+	 * Tabelle mit den aktuell verwalteten PersistenceHandlern. Als SchlÃ¼ssel dient
 	 * die DatenIdentifikation ({@link DataIdentification}). Damit kann auf die
-	 * persistenten Parametersätze für eine DatanIdentifikation zugegriffen werden
+	 * persistenten ParametersÃ¤tze fÃ¼r eine DatanIdentifikation zugegriffen werden
 	 * ({@link PersistanceHandlerManager} ).
 	 */
 	private Hashtable _paramObjects = new Hashtable();
 	/**
-	 * Verzeichnispfad, in dem die Parametersätze persistent gespeichert werden.
-	 * Das Verzeichnis wird als Aufrufparameter übergeben und muss bereits
+	 * Verzeichnispfad, in dem die ParametersÃ¤tze persistent gespeichert werden.
+	 * Das Verzeichnis wird als Aufrufparameter Ã¼bergeben und muss bereits
 	 * existieren.
 	 */
 	private static File _paramPath;
 	/**
-	 * Pid des Parametrierungsobjekts mit den Parametern, über die sich die
-	 * Parametrierung parametrieren läßt.
+	 * Pid des Parametrierungsobjekts mit den Parametern, Ã¼ber die sich die
+	 * Parametrierung parametrieren lÃ¤ÃŸt.
 	 */
 	private static String _pidParametrierung;
 	/**
@@ -136,12 +142,12 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 	 */
 	private static ClientDavInterface _connection;
 	/**
-	 * Der Aspekt, mit dem die Parametersätze durch die Parametrierung publiziert
+	 * Der Aspekt, mit dem die ParametersÃ¤tze durch die Parametrierung publiziert
 	 * werden.
 	 */
 	private Aspect _outputAspect;
 	/**
-	 * Der Aspekt, mit dem die Parametersätze von der Parametrierung empfangen
+	 * Der Aspekt, mit dem die ParametersÃ¤tze von der Parametrierung empfangen
 	 * werden.
 	 */
 	private Aspect _inputAspect;
@@ -159,16 +165,16 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 
 	/**
 	 * Konstruiert ein ParamApp Objekt. Bei der Konstruktion werden folgende
-	 * Schritte durchgeführt: <ul> <li>Anmeldung auf den Parametersatz
-	 * <code>atg.parametrierung</code> des als Aufrufparameter übergebenen
+	 * Schritte durchgefÃ¼hrt: <ul> <li>Anmeldung auf den Parametersatz
+	 * <code>atg.parametrierung</code> des als Aufrufparameter Ã¼bergebenen
 	 * ParamApp-Objekts.</li> <li>Anmeldung beim {@link de.bsvrz.sys.funclib.dataIdentificationSettings.SettingsManager}
-	 * zur Verarbeitung geänderter Parameterzuständigkeiten. </li> <li>Versendung
+	 * zur Verarbeitung geÃ¤nderter ParameterzustÃ¤ndigkeiten. </li> <li>Versendung
 	 * des persistenten Parametersatzes <code>atg.parametrierung</code> der
 	 * Parametrierung</li> </ul>
-	 * <p/>
-	 * Damit empfängt die Parametrierung als erstes "ihren" Parametersatz und
-	 * wertet ihn aus, wodurch dann alle zu parametrierenden Datensätze angemeldet,
-	 * eventuell vorhande persistente Daten versandt und geänderte Vorgaben
+	 * <p>
+	 * Damit empfÃ¤ngt die Parametrierung als erstes "ihren" Parametersatz und
+	 * wertet ihn aus, wodurch dann alle zu parametrierenden DatensÃ¤tze angemeldet,
+	 * eventuell vorhande persistente Daten versandt und geÃ¤nderte Vorgaben
 	 * verarbeitet werden (d.h. die Parameterierung zieht sich so beim Start selbst
 	 * aus dem Sumpf.
 	 */
@@ -178,10 +184,10 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 			_outputAspect = _config.getAspect(ASP_OUTPUT);
 			_inputAspect = _config.getAspect(ASP_INPUT);
 
-			// Zugriffsrechte für diverse User werden nicht mehr automatisch auf Vollzugriff eingestellt, da dies bei
+			// Zugriffsrechte fÃ¼r diverse User werden nicht mehr automatisch auf Vollzugriff eingestellt, da dies bei
 			// Verwendung mehrerer Parametrierungen problematisch ist.
-			// Die Zugriffsrechte müssen jetzt korrekt parametriert werden.
-			// Alternativ kann die Rechteprüfung im Datenverteiler mit dem Aufrufparameter -rechtePruefung=nein abgeschaltet werden.
+			// Die Zugriffsrechte mÃ¼ssen jetzt korrekt parametriert werden.
+			// Alternativ kann die RechteprÃ¼fung im Datenverteiler mit dem Aufrufparameter -rechtePruefung=nein abgeschaltet werden.
 			//setStandardUserAccess();
 
 			// Systemobjekt der Parameterierung ermitteln
@@ -191,16 +197,16 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 				            "] existiert nicht!");
 				System.exit(1);
 			}
-			// DatenIdentifikation für Parametrierung und Parametersatz der Parameterierung erzeugen
+			// DatenIdentifikation fÃ¼r Parametrierung und Parametersatz der Parameterierung erzeugen
 			DataDescription parameterDescriptionOut = new DataDescription(_config.getAttributeGroup("atg.parametrierung"),
 			                                                              _outputAspect, (short) 0);
 			DataDescription parameterDescriptionIn = new DataDescription(_config.getAttributeGroup("atg.parametrierung"),
 			                                                             _inputAspect, (short) 0);
 			DataIdentification parameterIdentification = new DataIdentification(paramApp, parameterDescriptionOut);
 
-			// Manager für die PersistanceHandler instanzieren.
+			// Manager fÃ¼r die PersistanceHandler instanzieren.
 			_persistanceHandlerManager = new PersistanceHandlerManager(_paramPath);
-			// PrsistenceHandler für diese DatenIdentifikation holen und merken...
+			// PrsistenceHandler fÃ¼r diese DatenIdentifikation holen und merken...
 			_paramObjects.put(parameterIdentification, _persistanceHandlerManager.getHandler(parameterIdentification));
 
 			// ... und SettingsManager zur Verwaltung dieses Parametersatzes instanzieren.
@@ -286,7 +292,7 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 	}
 
 	//	/**
-	//	 * Setzt für aller User Berechtigungsklasse auf Vollzugriff. Methode entfernen, sobald Zugriffsrechterparameter von
+	//	 * Setzt fÃ¼r aller User Berechtigungsklasse auf Vollzugriff. Methode entfernen, sobald Zugriffsrechterparameter von
 	//	 * ParamApp korrekt verarbeitet werden.
 	//	 *
 	//	 * @throws Exception
@@ -301,10 +307,10 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 	//		roleRegionPairs.getItem(0).getReferenceValue("rolle").setSystemObject(_config.getObject("rolle.alles"));
 	//		roleRegionPairs.getItem(0).getReferenceValue("region").setSystemObject(_config.getObject("region.alles"));
 	//		publishParameter(operatorAccessObject, atg, data);
-	//		System.out.println("Berechtigungsklasse '" + operatorAccessObject.getNameOrPidOrId() + "' wurde auf unbeschränkten Zugriff eingestellt");
+	//		System.out.println("Berechtigungsklasse '" + operatorAccessObject.getNameOrPidOrId() + "' wurde auf unbeschrÃ¤nkten Zugriff eingestellt");
 	//
 	//
-	//		//Für alle Benutzer Zuordnung zur Berechtigungsklasse herstellen:
+	//		//FÃ¼r alle Benutzer Zuordnung zur Berechtigungsklasse herstellen:
 	//		atg = _config.getAttributeGroup("atg.benutzerParameter");
 	//		data = _connection.createData(atg);
 	//		data.getReferenceValue("berechtigungsklasse").setSystemObject(operatorAccessObject);
@@ -312,14 +318,14 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 	//		while (allUserIterator.hasNext()) {
 	//			SystemObject user = (SystemObject) allUserIterator.next();
 	//			publishParameter(user, atg, data);
-	//			System.out.println("Berechtigungsklasse '" + operatorAccessObject.getNameOrPidOrId() + "' wurde für den Benutzer '" + user.getName() + "' parametriert.");
+	//			System.out.println("Berechtigungsklasse '" + operatorAccessObject.getNameOrPidOrId() + "' wurde fÃ¼r den Benutzer '" + user.getName() + "' parametriert.");
 	//		}
 	//	}
 	//
 	//	/**
-	//	 * Hilffunktion für das Setzten der Zugriffsrechte. wird nur für {@link #setStandardUserAccess()} benöätigt.
+	//	 * Hilffunktion fÃ¼r das Setzten der Zugriffsrechte. wird nur fÃ¼r {@link #setStandardUserAccess()} benÃ¶Ã¤tigt.
 	//	 *
-	//	 * @param object Objek, für das Daten versandt werden.
+	//	 * @param object Objek, fÃ¼r das Daten versandt werden.
 	//	 * @param atg    Attributgruppe.
 	//	 * @param data   zu versendende Daten.
 	//	 *
@@ -337,11 +343,11 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 	 * Sendesteuerung des Datenverteilers an die Applikation. Diese Methode muss
 	 * von der Applikation implementiert werden, um den Versand von Daten zu
 	 * starten bzw. anzuhalten. Der Datenverteiler signalisiert damit einer Quelle
-	 * oder einem Sender dass mindestens ein Abnehmer bzw. kein Abnehmer mehr für
+	 * oder einem Sender dass mindestens ein Abnehmer bzw. kein Abnehmer mehr fÃ¼r
 	 * die zuvor angemeldeten Daten vorhanden ist. Die Quelle wird damit
 	 * aufgefordert den Versand von Daten zu starten bzw. zu stoppen.
 	 *
-	 * @param object          Das in der zugehörigen Sendeanmeldung angegebene
+	 * @param object          Das in der zugehÃ¶rigen Sendeanmeldung angegebene
 	 *                        Objekt, auf das sich die Sendesteuerung bezieht.
 	 * @param dataDescription Beschreibende Informationen zu den angemeldeten Daten
 	 *                        auf die sich die Sendesteuerung bezieht.
@@ -361,8 +367,8 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 	}
 
 	/**
-	 * Liefert <code>false</code> zurück, um den Datenverteiler-Applikationsfunktionenen
-	 * zu signalisieren, dass keine Sendesteuerung gewünscht wird.
+	 * Liefert <code>false</code> zurÃ¼ck, um den Datenverteiler-Applikationsfunktionenen
+	 * zu signalisieren, dass keine Sendesteuerung gewÃ¼nscht wird.
 	 *
 	 * @param object          Wird ignoriert.
 	 * @param dataDescription Wird ignoriert.
@@ -377,10 +383,10 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 	 * Aktualisierungsmethode, die nach Empfang eines angemeldeten Datensatzes von
 	 * den Datenverteiler-Applikationsfunktionen aufgerufen wird.
 	 *
-	 * @param results Feld mit den empfangenen Ergebnisdatensätzen.
+	 * @param results Feld mit den empfangenen ErgebnisdatensÃ¤tzen.
 	 */
 	public void update(ResultData[] results) {
-		_debug.fine("Uddatedatensätze erhalten...");
+		_debug.fine("UddatedatensÃ¤tze erhalten...");
 		try {
 			List outputList = new LinkedList();
 			for (int i = 0; i < results.length; ++i) {
@@ -418,7 +424,7 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 
 		try {
 			ArgumentList argumentList = new ArgumentList(arguments);
-			// DebugLogger für Debug-Ausgaben
+			// DebugLogger fÃ¼r Debug-Ausgaben
 			// Debug.setHandlerLevel("StdErr", Debug.INFO);
 			Debug.init("ParameterApplication", argumentList);
 			_debug = Debug.getLogger();
@@ -439,7 +445,7 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 
 			_paramPath = argumentList.fetchArgument("-parameterVerzeichnis=./parameter").asDirectory();
 
-			// Jede Instanz der Parametrierung braucht seine eigenen Parameter. Diese hängen Defaultmäßig am
+			// Jede Instanz der Parametrierung braucht seine eigenen Parameter. Diese hÃ¤ngen DefaultmÃ¤ÃŸig am
 			// lokalen Konfigurationsverantwortlichen.
 			_pidParametrierung = argumentList.fetchArgument("-parametrierung=").asString();
 			if (_pidParametrierung.length() == 0) {
@@ -456,11 +462,11 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 			System.out.println("Benutzung: java de.kappich.puk.param.main.ParamApp -parameterPfad=ParameterPfad -parametrierung=Pid");
 			System.out.println("ParameterPfad: Pfadangabe, in der die Parameterdaten persistent gehalten werden.");
 			System.out.println("Pid:           PID des Parametrierungsobjekts (typ.parametrierung) an dem die)");
-			System.out.println("               Parameter für diese Parametrierung verwaltet werden.");
+			System.out.println("               Parameter fÃ¼r diese Parametrierung verwaltet werden.");
 			System.exit(1);
 		}
 		catch (Exception e) {
-			_debug.error("Schwerer Fehler beim Ausführen der Parameterapplikation:");
+			_debug.error("Schwerer Fehler beim AusfÃ¼hren der Parameterapplikation:");
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -486,7 +492,7 @@ public class ParamApp implements ClientSenderInterface, ClientReceiverInterface 
 					_debug.error("Schwerwiegender Laufzeitfehler: " + t + " hat sich wegen eines Errors beendet, Prozess wird terminiert", e);
 				}
 				catch(Throwable ignored) {
-					// Weitere Fehler während der Ausgaben werden ignoriert, damit folgendes exit() auf jeden Fall ausgeführt wird.
+					// Weitere Fehler wÃ¤hrend der Ausgaben werden ignoriert, damit folgendes exit() auf jeden Fall ausgefÃ¼hrt wird.
 				}
 				System.exit(1);
 			}
