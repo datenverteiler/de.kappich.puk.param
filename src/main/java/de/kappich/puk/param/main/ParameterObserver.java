@@ -1,12 +1,12 @@
 /*
  * Copyright 2007 by Kappich Systemberatung, Aachen
- * Copyright 2004 by Kappich+Kniß Systemberatung Aachen (K2S)
+ * Copyright 2004 by Kappich+KniÃŸ Systemberatung Aachen (K2S)
  * 
  * This file is part of de.kappich.puk.param.
  * 
- * de.kappich.puk.param is free software; you can redistribute it and/or modify
+ * de.kappich.puk.param is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * de.kappich.puk.param is distributed in the hope that it will be useful,
@@ -15,8 +15,14 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with de.kappich.puk.param; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * along with de.kappich.puk.param.  If not, see <http://www.gnu.org/licenses/>.
+
+ * Contact Information:
+ * Kappich Systemberatung
+ * Martin-Luther-StraÃŸe 14
+ * 52062 Aachen, Germany
+ * phone: +49 241 4090 436 
+ * mail: <info@kappich.de>
  */
 
 package de.kappich.puk.param.main;
@@ -46,13 +52,13 @@ import java.util.*;
  * Verwaltet die An- und Abmeldungen beim Umparametrieren der Parametrierung.
  *
  * @author Kappich Systemberatung
- * @version $Revision: 9144 $
+ * @version $Revision$
  */
 
 final class ParameterObserver implements UpdateListener {
 
 	/**
-	 * DebugLogger für Debug-Ausgaben
+	 * DebugLogger fÃ¼r Debug-Ausgaben
 	 */
 	private static final Debug debug = Debug.getLogger();
 
@@ -94,24 +100,24 @@ final class ParameterObserver implements UpdateListener {
 	}
 
 	/**
-	 * Wird bei Änderung des Parameters für jede Datenidentifikation aufgerufen für
+	 * Wird bei Ã„nderung des Parameters fÃ¼r jede Datenidentifikation aufgerufen fÃ¼r
 	 * die es einen Eintrag gab oder gibt.
 	 *
 	 * @param dataIdentification Betroffene Datenidentifikation.
-	 * @param oldParameter       Zur Datenidentifikation gehörender Parameterwert
-	 *                           vor der Änderung oder <code>null</code> wenn es
-	 *                           vor der Änderung keinen spezifischen Eintrag gab.
-	 * @param newParameter       Zur Datenidentifikation gehörender Parameterwert
-	 *                           nach der Änderung oder <code>null</code> wenn es
-	 *                           nach der Änderung keinen spezifischen Eintrag mehr
+	 * @param oldParameter       Zur Datenidentifikation gehÃ¶render Parameterwert
+	 *                           vor der Ã„nderung oder <code>null</code> wenn es
+	 *                           vor der Ã„nderung keinen spezifischen Eintrag gab.
+	 * @param newParameter       Zur Datenidentifikation gehÃ¶render Parameterwert
+	 *                           nach der Ã„nderung oder <code>null</code> wenn es
+	 *                           nach der Ã„nderung keinen spezifischen Eintrag mehr
 	 *                           gibt.
 	 */
 	public void update(final DataIdentification dataIdentification, final Data oldParameter, final Data newParameter) {
 
-		boolean isNewEntry = false; // Übergebener Eintrag ist neu (true) oder wurde geändert (false);
+		boolean isNewEntry = false; // Ãœbergebener Eintrag ist neu (true) oder wurde geÃ¤ndert (false);
 
-		boolean toParameterNew = false; // Soll für diese DatenIdentifikation jetzt (neu) parametriert werden ?
-		boolean toParameterOld = false; // Wurde für diese DatenIdentifikation bisher (alt) parametriert ?
+		boolean toParameterNew = false; // Soll fÃ¼r diese DatenIdentifikation jetzt (neu) parametriert werden ?
+		boolean toParameterOld = false; // Wurde fÃ¼r diese DatenIdentifikation bisher (alt) parametriert ?
 
 		debug.fine("Parameterupdate (beim Empfang): {(" + dataIdentification + "),(" + newParameter + "),(" + oldParameter + ")}");
 		try {
@@ -124,12 +130,12 @@ final class ParameterObserver implements UpdateListener {
 			final DataDescription inputDescription = new DataDescription(atg, _inputAspect, simVariante);
 			final DataDescription outputDescription = new DataDescription(atg, _outputAspect, simVariante);
 
-			// Für die weitere Verarbeitung DataIdentifikation um Aspekt ergänzen.
+			// FÃ¼r die weitere Verarbeitung DataIdentifikation um Aspekt ergÃ¤nzen.
 			_dataIdentification = new DataIdentification(dataIdentification.getObject(), outputDescription);
 			debug.fine("Parameterupdate (nach Anpassung): {(" + _dataIdentification + "),(" + newParameter + "),(" + oldParameter + ")}");
 
 			if (newParameter == null) {
-				// Datensatz ist alt (sonst gäbe es neue Eigenschaften)
+				// Datensatz ist alt (sonst gÃ¤be es neue Eigenschaften)
 				isNewEntry = false;
 			}
 			else {
@@ -139,7 +145,7 @@ final class ParameterObserver implements UpdateListener {
 			}
 
 			if (oldParameter == null) {
-				// Datensatz ist neu (sonst gäbe es bereits alte Eigenschaften)
+				// Datensatz ist neu (sonst gÃ¤be es bereits alte Eigenschaften)
 				isNewEntry = true;
 			}
 			else {
@@ -162,7 +168,7 @@ final class ParameterObserver implements UpdateListener {
 					                            outputDescription,
 					                            SenderRole.source());
 
-					// PersistenceHandler für diese DatenIdentifikation holen und merken...
+					// PersistenceHandler fÃ¼r diese DatenIdentifikation holen und merken...
 					_paramObjects.put(_dataIdentification, _persistanceHandlerManager.getHandler(_dataIdentification));
 
 					// Persistente Daten versenden
@@ -189,14 +195,14 @@ final class ParameterObserver implements UpdateListener {
 			// (Alter Eintrag UND neue Vorgabe Parametrieren = nein UND bisherige Vorgabe Parametrieren = ja)
 			// dann zum Senden- und Empfangen abmelden.
 			// Ausnahme: Parametersatz der Parametrierung darf nicht abgemeldet werden, sonst ist Umparametrierung nicht
-			// mehr möglich.
+			// mehr mÃ¶glich.
 			if (!(atg.equals(_atgParametrierung) && _paramApp.equals(_dataIdentification.getObject()))) {
 				if ((isNewEntry && !toParameterNew) || (!isNewEntry && !toParameterNew && toParameterOld)) {
 					// Parametersatz zum Senden abmelden
 					_connection.unsubscribeSender(_paramStandardApp,
 					                              _dataIdentification.getObject(),
 					                              outputDescription);
-					// PersistenceHandler für diese DatenIdentifikation freigeben...
+					// PersistenceHandler fÃ¼r diese DatenIdentifikation freigeben...
 					_paramObjects.remove(_dataIdentification);
 
 					// Parametersatz zum Empfang abmelden
