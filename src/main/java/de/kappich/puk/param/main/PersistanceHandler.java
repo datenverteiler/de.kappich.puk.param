@@ -1,12 +1,12 @@
 /**
  * Copyright 2007 by Kappich Systemberatung, Aachen
- * Copyright 2004 by Kappich+Kniﬂ Systemberatung Aachen (K2S)
+ * Copyright 2004 by Kappich+Kni√ü Systemberatung Aachen (K2S)
  * 
  * This file is part of de.kappich.puk.param.
  * 
- * de.kappich.puk.param is free software; you can redistribute it and/or modify
+ * de.kappich.puk.param is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
  * de.kappich.puk.param is distributed in the hope that it will be useful,
@@ -15,8 +15,14 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with de.kappich.puk.param; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * along with de.kappich.puk.param.  If not, see <http://www.gnu.org/licenses/>.
+
+ * Contact Information:
+ * Kappich Systemberatung
+ * Martin-Luther-Stra√üe 14
+ * 52062 Aachen, Germany
+ * phone: +49 241 4090 436 
+ * mail: <info@kappich.de>
  */
 
 package de.kappich.puk.param.main;
@@ -35,17 +41,17 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * Ermˆglicht, {@link de.bsvrz.dav.daf.main.ResultData} zu einer {@link de.bsvrz.sys.funclib.dataIdentificationSettings.DataIdentification} persistent zu
- * schreiben und die zu {@link de.bsvrz.sys.funclib.dataIdentificationSettings.DataIdentification} gespeicherten Datens‰tze komplett zu lesen.
+ * Erm√∂glicht, {@link de.bsvrz.dav.daf.main.ResultData} zu einer {@link de.bsvrz.sys.funclib.dataIdentificationSettings.DataIdentification} persistent zu
+ * schreiben und die zu {@link de.bsvrz.sys.funclib.dataIdentificationSettings.DataIdentification} gespeicherten Datens√§tze komplett zu lesen.
  *
  * @author Kappich Systemberatung
- * @version $Revision: 5058 $
+ * @version $Revision$
  */
 
 public final class PersistanceHandler {
 
 	/**
-	 * DebugLogger f¸r Debug-Ausgaben
+	 * DebugLogger f√ºr Debug-Ausgaben
 	 */
 	private static final Debug debug = Debug.getLogger();
 
@@ -57,7 +63,7 @@ public final class PersistanceHandler {
 	/**
 	 * Erzeugt ein Objekt vom Typ PersistanceHandler
 	 *
-	 * @param dataIdentification {@link de.bsvrz.sys.funclib.dataIdentificationSettings.DataIdentification}, f¸r die Datens‰tze persistent verwaltet werden sollen.
+	 * @param dataIdentification {@link de.bsvrz.sys.funclib.dataIdentificationSettings.DataIdentification}, f√ºr die Datens√§tze persistent verwaltet werden sollen.
 	 * @param persistantData	 Dateispezifikation, in der die Daten persistent gespeichert werden.
 	 */
 	PersistanceHandler(final DataIdentification dataIdentification, final File persistantData) {
@@ -66,7 +72,7 @@ public final class PersistanceHandler {
 	}
 
 	/**
-	 * Speichert die Daten persistent. Der Datensatz wird angeh‰ngt, bisher geschriebene Datens‰tze bleiben erhalten.
+	 * Speichert die Daten persistent. Der Datensatz wird angeh√§ngt, bisher geschriebene Datens√§tze bleiben erhalten.
 	 *
 	 * @param result Ergebnisdatensatz, der gespeichert werden soll.
 	 */
@@ -75,15 +81,15 @@ public final class PersistanceHandler {
 	}
 
 	/**
-	 * Speichert die Daten persistent. Der Datensatz wird angeh‰ngt, bisher geschriebene Datens‰tze bleiben erhalten.
+	 * Speichert die Daten persistent. Der Datensatz wird angeh√§ngt, bisher geschriebene Datens√§tze bleiben erhalten.
 	 *
 	 * @param result Ergebnisdatensatz, der gespeichert werden soll.
-	 * @param append Legt fest, ob die Daten angeh‰ngt werden
-	 *               <p/>
-	 *               (<code>true</code>: Daten werden angeh‰ngt, entspricht dann der Methode {@link
+	 * @param append Legt fest, ob die Daten angeh√§ngt werden
+	 *               <p>
+	 *               (<code>true</code>: Daten werden angeh√§ngt, entspricht dann der Methode {@link
 	 *               #makeDataPersistance(de.bsvrz.dav.daf.main.ResultData)})
-	 *               <p/>
-	 *               (<code>false</code>: Datensatz ¸berschreibt aktuelle Eintr‰ge. Es wird also nur dieser eine Datensatz persistent
+	 *               <p>
+	 *               (<code>false</code>: Datensatz √ºberschreibt aktuelle Eintr√§ge. Es wird also nur dieser eine Datensatz persistent
 	 *               gehalten.
 	 */
 
@@ -101,7 +107,7 @@ public final class PersistanceHandler {
 			throw new RuntimeException(e);
 		}
 		catch (IOException e) {
-			debug.error("I/O-Fehler beim Versuch, auf die Persistenzdatei f¸r DatenIdentifikation "
+			debug.error("I/O-Fehler beim Versuch, auf die Persistenzdatei f√ºr DatenIdentifikation "
 					+ _dataIdentification + " zu schreiben.");
 			throw new RuntimeException(e);
 		}
@@ -110,7 +116,7 @@ public final class PersistanceHandler {
 	/**
 	 * Liefert die persistent gespeicherten Daten.
 	 *
-	 * @return Array mit Ergebnisdaten der persistenten Daten f¸r diese {@link de.bsvrz.sys.funclib.dataIdentificationSettings.DataIdentification}.
+	 * @return Array mit Ergebnisdaten der persistenten Daten f√ºr diese {@link de.bsvrz.sys.funclib.dataIdentificationSettings.DataIdentification}.
 	 */
 	public ResultData[] getPersistanceData() {
 
@@ -137,13 +143,13 @@ public final class PersistanceHandler {
 				}
 			}
 			catch (Exception ex) {
-				final String errorMessage = "I/O-Fehler beim Versuch, die Persistenzdatei f¸r DatenIdentifikation "
-						+ _dataIdentification + " zu lesen. Die dazugehˆrige Datei wird umbenannt in '"
+				final String errorMessage = "I/O-Fehler beim Versuch, die Persistenzdatei f√ºr DatenIdentifikation "
+						+ _dataIdentification + " zu lesen. Die dazugeh√∂rige Datei wird umbenannt in '"
 						+ _persistantData.getName() + ".old'";
 				debug.warning(errorMessage, ex);
 				// Datei umbenennen
 				final File oldFile = new File(_persistantData.getParent(), _persistantData.getName() + ".old");
-				in.close();	// erst Stream schlieﬂen, damit die Datei umbenannt werden kann!
+				in.close();	// erst Stream schlie√üen, damit die Datei umbenannt werden kann!
 				_persistantData.renameTo(oldFile);
 			} finally {
 				// InputStream muss geschlossen werden
@@ -164,7 +170,7 @@ public final class PersistanceHandler {
 			throw new RuntimeException(e);
 		}
 		catch (IOException e) {
-			debug.error("Fehlerhafte Parametrierungsdatei (Struktur ATG ge‰ndert?): " + _persistantData.getName());
+			debug.error("Fehlerhafte Parametrierungsdatei (Struktur ATG ge√§ndert?): " + _persistantData.getName());
 			throw new RuntimeException(e);
 		}
 	}
